@@ -7,14 +7,14 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/list_item_text1"
+        android:id="@+id/list_item_text_miwork"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="lutti"
         />
 
     <TextView
-        android:id="@+id/list_item_text2"
+        android:id="@+id/list_item_text_default"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="one"/>
