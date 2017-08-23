@@ -10,9 +10,17 @@ public class Word {
 
     private String mDefaultText;
 
+    private int mImageID;
+
     public Word(String defaultText, String miwokText) {
         mMiwokText = miwokText;
         mDefaultText = defaultText;
+    }
+
+    public Word(String defaultText, String miwokText, int imageID) {
+        mMiwokText = miwokText;
+        mDefaultText = defaultText;
+        mImageID = imageID;
     }
 
     /**
@@ -28,5 +36,10 @@ public class Word {
     public String getDefaultText() {
         return mDefaultText;
     }
+
+    /**
+     * get the image resource id
+     * */
+    public int getImageID() { return mImageID; }
 
 }
