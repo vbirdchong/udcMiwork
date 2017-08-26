@@ -10,7 +10,9 @@ public class Word {
 
     private String mDefaultText;
 
-    private int mImageID;
+    private int mImageID = NO_IMAGE_RESOURCE;
+
+    private static final int NO_IMAGE_RESOURCE = -1;
 
     public Word(String defaultText, String miwokText) {
         mMiwokText = miwokText;
@@ -42,4 +44,11 @@ public class Word {
      * */
     public int getImageID() { return mImageID; }
 
+    /**
+     * Return whether or not there is an image for this word
+     * @return ture if have image resource, flase for no image resource
+     */
+    public boolean hasImage() {
+        return mImageID != NO_IMAGE_RESOURCE;
+    }
 }

@@ -35,11 +35,17 @@ public class WordAdapter extends ArrayAdapter<Word> {
         TextView defaultText = (TextView) listItemView.findViewById(R.id.list_item_text_default);
         defaultText.setText(currentWord.getDefaultText());
 
-        if (listItemView.findViewById(R.id.list_item_image) != null){
-            ImageView imageView = (ImageView) listItemView.findViewById(R.id.list_item_image);
+        ImageView imageView = (ImageView) listItemView.findViewById(R.id.list_item_image);
+        if (currentWord.hasImage()){
             imageView.setImageResource(currentWord.getImageID());
+            imageView.setVisibility(View.VISIBLE);
         }
-
+        else {
+            // if we have no image to show, set the image view to GONE.
+            // if set the view to INVISIBLE, we will have a blank which size as image size before the TextView
+            imageView.setVisibility(View.GONE);
+        }
+        
         return listItemView;
     }
 }
