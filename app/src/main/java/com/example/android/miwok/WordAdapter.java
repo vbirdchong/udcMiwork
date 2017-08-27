@@ -1,6 +1,7 @@
 package com.example.android.miwok;
 
 import android.app.Activity;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,11 @@ import java.util.ArrayList;
 
 public class WordAdapter extends ArrayAdapter<Word> {
 
-    public WordAdapter(Activity context, ArrayList<Word> wordList) {
+    private int mBackgroundColorResId;
+
+    public WordAdapter(Activity context, ArrayList<Word> wordList, int backgroundColorResId) {
         super(context, 0, wordList);
+        mBackgroundColorResId = backgroundColorResId;
     }
 
     @Override
@@ -29,6 +33,15 @@ public class WordAdapter extends ArrayAdapter<Word> {
         }
 
         Word currentWord = getItem(position);
+        // method 1: change the background resource
+//        LinearLayout content = (LinearLayout) listItemView.findViewById(R.id.list_item_content);
+//        content.setBackgroundResource(mBackgroundColorResId);
+
+        // method 2: get current content's color by color resource id, then set the view color
+        View content = listItemView.findViewById(R.id.list_item_content);
+        int color = ContextCompat.getColor(getContext(), mBackgroundColorResId);
+        content.setBackgroundColor(color);
+
         TextView miwokText = (TextView) listItemView.findViewById(R.id.list_item_text_miwork);
         miwokText.setText(currentWord.getMiwokText());
 
@@ -45,7 +58,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
             // if set the view to INVISIBLE, we will have a blank which size as image size before the TextView
             imageView.setVisibility(View.GONE);
         }
-        
+
         return listItemView;
     }
 }
