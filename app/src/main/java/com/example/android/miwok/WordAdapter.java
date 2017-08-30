@@ -59,10 +59,11 @@ public class WordAdapter extends ArrayAdapter<Word> {
             imageView.setVisibility(View.GONE);
         }
 
-        if (currentWord.hasAudio()) {
-            WordClickListener listener = new WordClickListener(this.getContext(), currentWord.getAudioID());
-            content.setOnClickListener(listener);
-        }
+        // one method to implement the audio play
+//        if (currentWord.hasAudio()) {
+//            WordClickListener listener = new WordClickListener(this.getContext(), currentWord.getAudioID());
+//            content.setOnClickListener(listener);
+//        }
 
         return listItemView;
     }
