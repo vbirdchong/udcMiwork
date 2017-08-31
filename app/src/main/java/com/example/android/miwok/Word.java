@@ -78,4 +78,14 @@ public class Word {
     public boolean hasAudio() {
         return mAudioID != NO_AUDIO_RESOURCE;
     }
+
+    @Override
+    public String toString() {
+        return "Word{" +
+                "mMiwokText='" + mMiwokText + '\'' +
+                ", mDefaultText='" + mDefaultText + '\'' +
+                ", mImageID=" + mImageID +
+                ", mAudioID=" + mAudioID +
+                '}';
+    }
 }
