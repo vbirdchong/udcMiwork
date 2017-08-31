@@ -23,10 +23,10 @@ public class Word {
         mDefaultText = defaultText;
     }
 
-    public Word(String defaultText, String miwokText, int imageID) {
+    public Word(String defaultText, String miwokText, int audioID) {
         mMiwokText = miwokText;
         mDefaultText = defaultText;
-        mImageID = imageID;
+        mAudioID = audioID;
     }
 
     public Word(String defaultText, String miwokText, int imageID, int audioID) {
