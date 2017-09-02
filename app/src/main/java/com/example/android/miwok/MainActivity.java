@@ -18,6 +18,7 @@ package com.example.android.miwok;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -69,7 +70,31 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    public void openNumbersList(View v) {
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("MainActivity", "onStop()");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("MainActivity", "onStart()");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("MainActivity", "onPause()");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("MainActivity", "onDestory()");
+    }
+
+    //    public void openNumbersList(View v) {
 //        Intent intent = new Intent(this, NumbersActivity.class);
 //        startActivity(intent);
 //    }
