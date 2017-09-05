@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/list_item_height"
     android:background="@color/tan_background"
     android:minHeight="@dimen/list_item_height">
 
@@ -12,10 +12,14 @@
         android:layout_width="@dimen/list_item_height"
         android:layout_height="@dimen/list_item_height"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/list_item_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/list_item_image"
         android:orientation="vertical"
         android:background="@color/category_numbers"
         android:paddingLeft="16dp">
@@ -23,7 +27,7 @@
         <TextView
             android:id="@+id/list_item_text_miwork"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="44dp"
             android:layout_weight="1"
             android:gravity="bottom"
             android:textColor="@android:color/white"
@@ -34,12 +38,21 @@
         <TextView
             android:id="@+id/list_item_text_default"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="44dp"
             android:layout_weight="1"
+            android:layout_below="@+id/list_item_text_miwork"
             android:gravity="top"
             android:textColor="@android:color/white"
             android:textAppearance="?android:textAppearanceMedium"
             android:text="one"/>
-    </LinearLayout>
 
-</LinearLayout>
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_play_arrow_white_36dp"/>
+    </RelativeLayout>
+
+</RelativeLayout>

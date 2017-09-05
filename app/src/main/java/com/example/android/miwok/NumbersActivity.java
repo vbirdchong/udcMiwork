@@ -36,7 +36,7 @@ public class NumbersActivity extends AppCompatActivity {
         }
     };
 
-    AudioManager.OnAudioFocusChangeListener mAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+    private AudioManager.OnAudioFocusChangeListener mAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
             if (AudioManager.AUDIOFOCUS_GAIN == focusChange) {

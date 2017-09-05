@@ -1,14 +1,19 @@
 package com.example.android.miwok;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static android.media.AudioManager.AUDIOFOCUS_REQUEST_FAILED;
 
 /**
  * Created by chong chen on 2017/8/9.
@@ -18,6 +23,8 @@ public class ColorsActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
 
+    private AudioManager mAudioManager;
+
     private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mediaPlayer) {
@@ -26,10 +33,27 @@ public class ColorsActivity extends AppCompatActivity {
         }
     };
 
+    private AudioManager.OnAudioFocusChangeListener mAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            if (AudioManager.AUDIOFOCUS_GAIN == focusChange) {
+                mMediaPlayer.start();
+            } else if (AudioManager.AUDIOFOCUS_LOSS == focusChange) {
+                releaseMediaPlayer();
+            } else if (AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK == focusChange ||
+                    AudioManager.AUDIOFOCUS_LOSS_TRANSIENT == focusChange && mMediaPlayer != null) {
+                //mMediaPlayer.setVolume(10, 10);
+                mMediaPlayer.pause();
+                mMediaPlayer.seekTo(0);
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         final ArrayList<Word> words = new ArrayList<Word>();
         words.add(new Word("red", "weṭeṭṭi", R.drawable.color_red, R.raw.color_red));
@@ -53,10 +77,20 @@ public class ColorsActivity extends AppCompatActivity {
                 releaseMediaPlayer();
 
                 Word word = words.get(i);
-                mMediaPlayer = MediaPlayer.create(ColorsActivity.this, word.getAudioID());
-                mMediaPlayer.start();
 
-                mMediaPlayer.setOnCompletionListener(mCompletionListener);
+                int returnVal = mAudioManager.requestAudioFocus(mAudioFocusChangeListener,
+                                                                AudioManager.STREAM_MUSIC,
+                                                                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                if (returnVal == AudioManager.AUDIOFOCUS_REQUEST_FAILED) {
+                    Log.w("ColorsActivity", "audio manager return fail");
+                } else if (returnVal == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                    Log.i("ColorsActivity", "audio manager granted");
+                    mMediaPlayer = MediaPlayer.create(ColorsActivity.this, word.getAudioID());
+                    mMediaPlayer.start();
+
+                    // set the callback when audio play over
+                    mMediaPlayer.setOnCompletionListener(mCompletionListener);
+                }
             }
         });
     }
@@ -65,6 +99,7 @@ public class ColorsActivity extends AppCompatActivity {
         if (mMediaPlayer != null) {
             mMediaPlayer.release();
             mMediaPlayer = null;
+            mAudioManager.abandonAudioFocus(mAudioFocusChangeListener);
         }
     }
 }
