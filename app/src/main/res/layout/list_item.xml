@@ -20,7 +20,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/list_item_image"
-        android:orientation="vertical"
         android:background="@color/category_numbers"
         android:paddingLeft="16dp">
 
@@ -46,7 +45,7 @@
             android:textAppearance="?android:textAppearanceMedium"
             android:text="one"/>
 
-        <ImageButton
+        <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentRight="true"
